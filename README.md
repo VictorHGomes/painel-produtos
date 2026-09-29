@@ -61,7 +61,7 @@ Em `backend/ProdutosApi/appsettings.json`, a string de conexão padrão aponta p
 
 ```json
 "ConnectionStrings": {
-  "Default": "Host=localhost;Port=5432;Database=produtos;Username=postgres;Password=postgres"
+  "Default": "Host=localhost;Port=5434;Database=produtos;Username=postgres;Password=postgres"
 }
 ```
 
@@ -89,7 +89,7 @@ A API ficará disponível no endereço exibido no terminal (por exemplo, `http:/
 - [x] Projeto ASP.NET Core Web API
 - [x] Entidades `Categoria`, `Produto` e `HistoricoProduto`
 - [x] `AppDbContext` (Entity Framework Core)
-- [ ] Migration inicial e criação das tabelas
+- [x] Migration inicial e criação das tabelas
 - [ ] Scripts SQL (criação, carga inicial e ajuste em massa)
 - [ ] Endpoints de produtos (listagem com filtro e paginação, detalhe, criação, alteração, ativar/desativar)
 - [ ] Endpoint de categorias

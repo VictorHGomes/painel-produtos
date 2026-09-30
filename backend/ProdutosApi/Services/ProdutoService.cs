@@ -38,4 +38,16 @@ public class ProdutoService : IProdutoService
 
         return new PagedResult<ProdutoDto>(itens, pagina, tamanhoPagina, total);
     }
+
+    public async Task<ProdutoDto?> ObterPorIdAsync(long id)
+{
+    return await _db.Produtos
+        .AsNoTracking()
+        .Where(p => p.Id == id)
+        .Select(p => new ProdutoDto(
+            p.Id, p.Nome, p.Descricao, p.Preco, p.Estoque,
+            p.CategoriaId, p.Categoria!.Nome,
+            p.Ativo, p.DataCriacao, p.DataAtualizacao))
+        .FirstOrDefaultAsync();
+}
 }

@@ -29,4 +29,14 @@ public class ProdutosController : ControllerBase
         var resultado = await _service.ListarAsync(nome, categoriaId, pagina, tamanhoPagina);
         return Ok(resultado);
     }
+
+    [HttpGet("{id:long}")]
+public async Task<ActionResult<ProdutoDto>> ObterPorId(long id){
+    var produto = await _service.ObterPorIdAsync(id);
+
+    if (produto is null)
+        return NotFound();
+
+    return Ok(produto);
+    }   
 }

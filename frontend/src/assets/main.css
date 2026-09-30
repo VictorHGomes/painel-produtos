@@ -1,11 +1,64 @@
 @import './base.css';
 
 #app {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1.5rem;
+  min-height: 100vh;
 }
 
 a {
   color: var(--color-heading);
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+.botao {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.botao:hover:not(:disabled) {
+  background-color: var(--color-border-hover);
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botao-primario {
+  background-color: #2c6e49;
+  border-color: #2c6e49;
+  color: #fff;
+}
+
+.botao-primario:hover:not(:disabled) {
+  background-color: #235939;
+}
+
+input,
+select,
+textarea {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.campo-erro {
+  border-color: #b3261e;
+}
+
+.mensagem-erro {
+  color: #b3261e;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
 }

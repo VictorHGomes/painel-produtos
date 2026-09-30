@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import ListaProdutosView from '../views/ListaProdutosView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,6 +7,11 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/produtos',
+    },
+    {
+      path: '/produtos',
+      name: 'produtos',
+      component: ListaProdutosView,
     },
   ],
 })

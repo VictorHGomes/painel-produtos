@@ -165,37 +165,6 @@ textarea::placeholder {
   margin-top: 0.3rem;
 }
 
-/* badges em formato de pilula */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.badge-sucesso {
-  background: var(--color-success-bg);
-  color: var(--color-success);
-}
-
-.badge-neutro {
-  background: var(--color-bg);
-  color: var(--color-text-secondary);
-}
-
-.badge-perigo {
-  background: var(--color-danger-bg);
-  color: var(--color-danger);
-}
-
-.texto-alerta {
-  color: var(--color-warning);
-  font-weight: 600;
-}
-
 /* alertas de estado (erro de conexao, etc.) */
 .alerta {
   display: flex;

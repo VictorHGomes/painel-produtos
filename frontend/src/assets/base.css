@@ -4,9 +4,7 @@
   --color-primary-hover: #25593f;
 
   --color-success: #2f6f4f;
-  --color-success-bg: #e3f3ea;
   --color-warning: #92660a;
-  --color-warning-bg: #fbf0d6;
   --color-danger: #b3261e;
   --color-danger-bg: #fbe9e8;
 
@@ -38,9 +36,7 @@
     --color-primary-hover: #5fae83;
 
     --color-success: #5fae83;
-    --color-success-bg: rgba(95, 174, 131, 0.16);
     --color-warning: #d9a441;
-    --color-warning-bg: rgba(217, 164, 65, 0.14);
     --color-danger: #e0655c;
     --color-danger-bg: rgba(224, 101, 92, 0.14);
 

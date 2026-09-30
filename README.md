@@ -10,8 +10,9 @@ Sistema web para cadastro, consulta, edição e desativação de produtos por me
 |---|---|
 | Front-end | Vue.js 3 (Composition API), Vue Router, Axios |
 | Back-end | C# com ASP.NET Core Web API (.NET 10) |
-| Acesso a dados | Entity Framework Core |
+| Acesso a dados | Entity Framework Core (Npgsql) |
 | Banco de dados | PostgreSQL |
+| Documentação da API | OpenAPI + Swagger UI |
 | Versionamento | Git e GitHub (branches por funcionalidade e Pull Requests) |
 
 ## Estrutura do repositório
@@ -19,9 +20,15 @@ Sistema web para cadastro, consulta, edição e desativação de produtos por me
 ```
 painel-produtos/
 ├── backend/
-│   └── ProdutosApi/      # API em C# (Controllers, Models, Data)
+│   └── ProdutosApi/
+│       ├── Controllers/  # Endpoints HTTP
+│       ├── Services/     # Regras de negócio
+│       ├── Dtos/         # Objetos de entrada e saída da API
+│       ├── Models/       # Entidades do banco
+│       ├── Data/         # AppDbContext e migrations
+│       └── Program.cs
 ├── frontend/             # Aplicação Vue.js (em breve)
-├── database/             # Scripts SQL (em breve)
+├── database/             # Scripts SQL (carga inicial e consultas)
 └── README.md
 ```
 
@@ -29,7 +36,7 @@ painel-produtos/
 
 - **Categorias**: `Id`, `Nome`
 - **Produtos**: `Id`, `Nome`, `Descricao`, `Preco`, `Estoque`, `CategoriaId`, `Ativo`, `DataCriacao`, `DataAtualizacao`
-- **HistoricoProdutos**: `Id`, `ProdutoId`, `CampoAlterado`, `ValorAntigo`, `ValorNovo`, `DataAlteracao`
+- **Historicos**: `Id`, `ProdutoId`, `CampoAlterado`, `ValorAntigo`, `ValorNovo`, `DataAlteracao`
 
 Relacionamentos: uma categoria possui muitos produtos; um produto possui muitos registros de histórico.
 
@@ -52,8 +59,10 @@ cd painel-produtos
 ### 2. Subir o banco de dados
 
 ```bash
-docker run --name pg-produtos -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=produtos -p 5432:5432 -d postgres
+docker run --name pg-produtos -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=produtos -p 5434:5432 -d postgres
 ```
+
+> O container usa a porta **5434** no computador para não conflitar com um PostgreSQL já instalado, que normalmente ocupa a 5432.
 
 ### 3. Configurar a conexão
 
@@ -75,13 +84,39 @@ dotnet tool install --global dotnet-ef
 dotnet ef database update
 ```
 
-### 5. Executar a API
+### 5. Carregar os dados iniciais (opcional)
+
+Insere 5 categorias e 30 produtos de exemplo. **Execute apenas uma vez**, pois rodar de novo duplica os dados.
 
 ```bash
+cd ../..
+docker cp database/02_dados_iniciais.sql pg-produtos:/tmp/02_dados_iniciais.sql
+docker exec pg-produtos psql -U postgres -d produtos -f /tmp/02_dados_iniciais.sql
+```
+
+O arquivo `database/04_consultas.sql` reúne consultas de estudo e conferência (JOIN, GROUP BY e HAVING), somente leitura.
+
+### 6. Executar a API
+
+```bash
+cd backend/ProdutosApi
 dotnet run
 ```
 
 A API ficará disponível no endereço exibido no terminal (por exemplo, `http://localhost:5221`).
+
+## Documentação da API (Swagger)
+
+Em ambiente de desenvolvimento, a interface do Swagger fica em `http://localhost:5221/swagger` (ajuste a porta conforme o terminal) e permite testar todos os endpoints pelo navegador. A especificação OpenAPI em JSON está em `/openapi/v1.json`.
+
+### Endpoints disponíveis
+
+| Método | Rota | Descrição |
+|---|---|---|
+| GET | `/api/produtos` | Lista produtos com filtro por `nome` e `categoriaId` e paginação (`pagina`, `tamanhoPagina`) |
+| GET | `/api/produtos/{id}` | Detalhe de um produto (404 se não existir) |
+| POST | `/api/produtos` | Cria um produto, com validação dos campos (201 ou 400) |
+| GET | `/api/categorias` | Lista as categorias em ordem alfabética |
 
 ## Roadmap
 
@@ -90,15 +125,17 @@ A API ficará disponível no endereço exibido no terminal (por exemplo, `http:/
 - [x] Entidades `Categoria`, `Produto` e `HistoricoProduto`
 - [x] `AppDbContext` (Entity Framework Core)
 - [x] Migration inicial e criação das tabelas
-- [ ] Scripts SQL (criação, carga inicial e ajuste em massa)
-- [ ] Endpoints de produtos (listagem com filtro e paginação, detalhe, criação, alteração, ativar/desativar)
-- [ ] Endpoint de categorias
+- [x] Scripts SQL: carga inicial e consultas
+- [ ] Scripts SQL: criação de tabelas e ajuste em massa de preços
+- [x] Endpoints de produtos: listagem com filtro e paginação, detalhe e criação
+- [ ] Endpoints de produtos: alteração e ativar/desativar
+- [x] Endpoint de categorias
+- [x] Documentação da API (Swagger/OpenAPI)
 - [ ] Histórico de alterações
-- [ ] Validações e tratamento global de erros
-- [ ] Camadas Controller, Service e Repository com DTOs
+- [ ] Tratamento global de erros e CORS
+- [ ] Camada Repository
 - [ ] Testes unitários (xUnit)
 - [ ] Telas em Vue.js (listagem, cadastro/edição, detalhe com histórico)
-- [ ] Documentação da API (Swagger/OpenAPI)
 - [ ] Prints das telas neste README
 
 ### Ideias futuras

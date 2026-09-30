@@ -90,9 +90,9 @@ A API ficará disponível no endereço exibido no terminal (por exemplo, `http:/
 - [x] Entidades `Categoria`, `Produto` e `HistoricoProduto`
 - [x] `AppDbContext` (Entity Framework Core)
 - [x] Migration inicial e criação das tabelas
-- [ ] Scripts SQL (criação, carga inicial e ajuste em massa)
-- [ ] Endpoints de produtos (listagem com filtro e paginação, detalhe, criação, alteração, ativar/desativar)
-- [ ] Endpoint de categorias
+- [x] Scripts SQL (criação, carga inicial e ajuste em massa)
+- [x] Endpoints de produtos (listagem com filtro e paginação, detalhe, criação, alteração, ativar/desativar)
+- [x] Endpoint de categorias
 - [ ] Histórico de alterações
 - [ ] Validações e tratamento global de erros
 - [ ] Camadas Controller, Service e Repository com DTOs

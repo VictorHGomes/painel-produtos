@@ -8,7 +8,6 @@ import { RouterLink, RouterView } from 'vue-router'
       <span class="cabecalho-titulo">Painel de Manutenção de Produtos</span>
       <nav class="cabecalho-nav">
         <RouterLink to="/produtos">Produtos</RouterLink>
-        <RouterLink to="/produtos/novo">Novo produto</RouterLink>
       </nav>
     </div>
   </header>

@@ -39,4 +39,18 @@ public async Task<ActionResult<ProdutoDto>> ObterPorId(long id){
 
     return Ok(produto);
     }   
+
+    [HttpPost]
+public async Task<IActionResult> Criar([FromBody] CriarProdutoDto dto)
+{
+    var criado = await _service.CriarAsync(dto);
+
+    if (criado is null)
+    {
+        ModelState.AddModelError(nameof(dto.CategoriaId), "A categoria informada não existe.");
+        return ValidationProblem(ModelState);
+    }
+
+    return CreatedAtAction(nameof(ObterPorId), new { id = criado.Id }, criado);
+}
 }

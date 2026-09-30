@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProdutosApi.Data;
 using ProdutosApi.Dtos;
-
+using ProdutosApi.Models;
 namespace ProdutosApi.Services;
 
 public class ProdutoService : IProdutoService
@@ -49,5 +49,28 @@ public class ProdutoService : IProdutoService
             p.CategoriaId, p.Categoria!.Nome,
             p.Ativo, p.DataCriacao, p.DataAtualizacao))
         .FirstOrDefaultAsync();
+}
+
+public async Task<ProdutoDto?> CriarAsync(CriarProdutoDto dto)
+{
+    var categoriaExiste = await _db.Categorias.AnyAsync(c => c.Id == dto.CategoriaId);
+    if (!categoriaExiste)
+        return null;
+
+    var produto = new Produto
+    {
+        Nome = dto.Nome.Trim(),
+        Descricao = dto.Descricao?.Trim(),
+        Preco = dto.Preco,
+        Estoque = dto.Estoque,
+        CategoriaId = dto.CategoriaId,
+        Ativo = true,
+        DataCriacao = DateTime.UtcNow
+    };
+
+    _db.Produtos.Add(produto);
+    await _db.SaveChangesAsync();
+
+    return await ObterPorIdAsync(produto.Id);
 }
 }

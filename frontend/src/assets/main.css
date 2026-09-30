@@ -1,11 +1,48 @@
 @import './base.css';
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
 #app {
   min-height: 100vh;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
 a {
-  color: var(--color-heading);
+  color: inherit;
 }
 
 button {
@@ -13,52 +50,210 @@ button {
   font: inherit;
 }
 
-.botao {
-  padding: 0.5rem 1rem;
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* preços e quantidades usam a mesma largura para cada dígito */
+.numerico {
+  font-variant-numeric: tabular-nums;
+}
+
+.alinhar-direita {
+  text-align: right;
+}
+
+/* cartao base usado nas telas */
+.card {
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background-color: var(--color-background-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+/* botoes */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
   color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.9rem;
   text-decoration: none;
-  display: inline-block;
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    color 150ms;
 }
 
-.botao:hover:not(:disabled) {
-  background-color: var(--color-border-hover);
+.btn:hover:not(:disabled) {
+  background: var(--color-bg);
 }
 
-.botao:disabled {
+.btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.botao-primario {
-  background-color: #2c6e49;
-  border-color: #2c6e49;
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primario {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
   color: #fff;
 }
 
-.botao-primario:hover:not(:disabled) {
-  background-color: #235939;
+.btn-primario:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-discreto {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-discreto:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* campos de formulario */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
 }
 
 input,
 select,
 textarea {
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
   border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background-color: var(--color-background);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
   color: var(--color-text);
   font: inherit;
+  transition: border-color 150ms;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-secondary);
 }
 
 .campo-erro {
-  border-color: #b3261e;
+  border-color: var(--color-danger);
 }
 
 .mensagem-erro {
-  color: #b3261e;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
+  color: var(--color-danger);
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+/* badges em formato de pilula */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-sucesso {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge-neutro {
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+}
+
+.badge-perigo {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.texto-alerta {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+/* alertas de estado (erro de conexao, etc.) */
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.alerta svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+}
+
+.alerta-perigo {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* bloco de skeleton enquanto carrega */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    var(--color-bg) 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: brilho-skeleton 1.4s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes brilho-skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* bloco central para estados vazios (lista vazia, 404) */
+.estado-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.estado-vazio svg {
+  width: 44px;
+  height: 44px;
+  opacity: 0.6;
 }

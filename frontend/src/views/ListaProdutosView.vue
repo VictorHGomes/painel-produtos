@@ -148,8 +148,8 @@ onMounted(() => {
           <tr>
             <th class="coluna-nome">Nome</th>
             <th class="coluna-categoria">Categoria</th>
-            <th class="coluna-numero alinhar-direita">Preço</th>
-            <th class="coluna-numero alinhar-direita">Estoque</th>
+            <th class="coluna-numero">Preço</th>
+            <th class="coluna-numero">Estoque</th>
             <th class="coluna-status">Status</th>
           </tr>
         </thead>
@@ -157,13 +157,13 @@ onMounted(() => {
           <tr v-for="n in 5" :key="n">
             <td><div class="skeleton" style="width: 70%; height: 14px"></div></td>
             <td><div class="skeleton" style="width: 50%; height: 14px"></div></td>
-            <td class="alinhar-direita">
+            <td class="coluna-numero">
               <div class="skeleton" style="width: 64px; height: 14px; margin-left: auto"></div>
             </td>
-            <td class="alinhar-direita">
+            <td class="coluna-numero">
               <div class="skeleton" style="width: 32px; height: 14px; margin-left: auto"></div>
             </td>
-            <td>
+            <td class="coluna-status">
               <div class="skeleton" style="width: 60px; height: 20px; border-radius: 999px"></div>
             </td>
           </tr>
@@ -201,8 +201,8 @@ onMounted(() => {
             <tr>
               <th class="coluna-nome">Nome</th>
               <th class="coluna-categoria">Categoria</th>
-              <th class="coluna-numero alinhar-direita">Preço</th>
-              <th class="coluna-numero alinhar-direita">Estoque</th>
+              <th class="coluna-numero">Preço</th>
+              <th class="coluna-numero">Estoque</th>
               <th class="coluna-status">Status</th>
             </tr>
           </thead>
@@ -215,13 +215,13 @@ onMounted(() => {
                 <p v-if="produto.descricao" class="descricao-produto">{{ produto.descricao }}</p>
               </td>
               <td data-label="Categoria">{{ produto.categoriaNome }}</td>
-              <td data-label="Preço" class="alinhar-direita numerico">
+              <td data-label="Preço" class="coluna-numero numerico">
                 {{ formatadorPreco.format(produto.preco) }}
               </td>
-              <td data-label="Estoque" class="alinhar-direita">
+              <td data-label="Estoque" class="coluna-numero">
                 <EstoqueDestaque :estoque="produto.estoque" />
               </td>
-              <td data-label="Status"><BadgeStatus :ativo="produto.ativo" /></td>
+              <td data-label="Status" class="coluna-status"><BadgeStatus :ativo="produto.ativo" /></td>
             </tr>
           </tbody>
         </table>
@@ -335,6 +335,19 @@ onMounted(() => {
   vertical-align: middle;
 }
 
+/* preco e estoque usam o mesmo padding horizontal do th e do td, para o titulo
+   terminar na mesma linha vertical dos numeros */
+.tabela-produtos th.coluna-numero,
+.tabela-produtos td.coluna-numero {
+  text-align: right;
+}
+
+/* espaco extra entre o numero do estoque e o status, que ficam em colunas vizinhas */
+.tabela-produtos th.coluna-status,
+.tabela-produtos td.coluna-status {
+  padding-left: var(--space-5);
+}
+
 .tabela-produtos tbody tr {
   cursor: pointer;
   transition: background-color 150ms;
@@ -388,6 +401,10 @@ onMounted(() => {
     border-bottom: none;
     padding: 0.3rem 0;
     text-align: left !important;
+  }
+
+  .tabela-produtos td.coluna-status {
+    padding-left: 0;
   }
 
   .tabela-produtos td::before {

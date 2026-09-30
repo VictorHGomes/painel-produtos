@@ -60,10 +60,6 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-.alinhar-direita {
-  text-align: right;
-}
-
 /* cartao base usado nas telas */
 .card {
   background: var(--color-surface);

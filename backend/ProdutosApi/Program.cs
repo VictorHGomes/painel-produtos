@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;   
 using ProdutosApi.Data;                
-
+using ProdutosApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +11,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<AppDbContext>(options =>                           
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));    
+
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 var app = builder.Build();
 

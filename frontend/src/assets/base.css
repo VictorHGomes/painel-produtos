@@ -1,0 +1,53 @@
+/* tema claro (padrão) */
+:root {
+  --color-primary: #2f6f4f;
+  --color-primary-hover: #25593f;
+
+  --color-success: #2f6f4f;
+  --color-warning: #92660a;
+  --color-danger: #b3261e;
+  --color-danger-bg: #fbe9e8;
+
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-border: #e2e5ea;
+  --color-text: #1f2430;
+  --color-text-secondary: #667085;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm:
+    0 1px 2px rgba(16, 24, 40, 0.06),
+    0 1px 1px rgba(16, 24, 40, 0.04);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+}
+
+/* tema escuro, seguindo a preferência do sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #4f9d74;
+    --color-primary-hover: #5fae83;
+
+    --color-success: #5fae83;
+    --color-warning: #d9a441;
+    --color-danger: #e0655c;
+    --color-danger-bg: rgba(224, 101, 92, 0.14);
+
+    --color-bg: #13161b;
+    --color-surface: #1b1f26;
+    --color-border: #2b303a;
+    --color-text: #e7e9ee;
+    --color-text-secondary: #9aa1ad;
+
+    --shadow-sm:
+      0 1px 2px rgba(0, 0, 0, 0.35),
+      0 1px 1px rgba(0, 0, 0, 0.25);
+  }
+}

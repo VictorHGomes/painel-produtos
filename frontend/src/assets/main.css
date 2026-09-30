@@ -1,0 +1,224 @@
+@import './base.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* preços e quantidades usam a mesma largura para cada dígito */
+.numerico {
+  font-variant-numeric: tabular-nums;
+}
+
+/* cartao base usado nas telas */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+/* botoes */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    color 150ms;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--color-bg);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primario {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primario:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-discreto {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-discreto:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* campos de formulario */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  transition: border-color 150ms;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.campo-erro {
+  border-color: var(--color-danger);
+}
+
+.mensagem-erro {
+  color: var(--color-danger);
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+/* alertas de estado (erro de conexao, etc.) */
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.alerta svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+}
+
+.alerta-perigo {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* bloco de skeleton enquanto carrega */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    var(--color-bg) 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: brilho-skeleton 1.4s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes brilho-skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* bloco central para estados vazios (lista vazia, 404) */
+.estado-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.estado-vazio svg {
+  width: 44px;
+  height: 44px;
+  opacity: 0.6;
+}
